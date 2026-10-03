@@ -236,6 +236,7 @@ plugins:
     options:
       links:
         GitHub: https://github.com/Cygnus0923
+        LinkedIn: https://www.linkedin.com/in/xuebin-nam-19772b228
     layout:
       position: footer
       priority: 50
