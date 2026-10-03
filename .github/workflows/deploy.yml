@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  # A change to the site itself (config, Quartz upgrade) merged into main
+  push:
+    branches:
+      - main
+  # The "Run workflow" button on the Actions tab
+  workflow_dispatch:
+  # Sent by the notes repo when a note changes (Stage E)
+  repository_dispatch:
+    types:
+      - notes-updated
+
+# The workflow only needs to read this repo; deploying uses the Cloudflare token
+permissions:
+  contents: read
+
+# If two deploys start close together, finish the first, then run the second
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v6
+
+      - name: Check out notes into content/
+        uses: actions/checkout@v6
+        with:
+          repository: Cygnus0923/notes-
+          ref: main
+          token: ${{ secrets.NOTES_TOKEN }}
+          path: content
+          fetch-depth: 0 # full history, so "last modified" dates come from git
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Quartz plugins
+        run: npx quartz plugin install --from-config
+
+      - name: Build site
+        run: npx quartz build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public --project-name=xuebin-site --branch=main
