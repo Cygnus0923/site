@@ -5,12 +5,9 @@ on:
   push:
     branches:
       - main
-  # The "Run workflow" button on the Actions tab
+  # The "Run workflow" button on the Actions tab; also started by the
+  # notes repo's trigger-site.yml when a note changes
   workflow_dispatch:
-  # Sent by the notes repo when a note changes (Stage E)
-  repository_dispatch:
-    types:
-      - notes-updated
 
 # The workflow only needs to read this repo; deploying uses the Cloudflare token
 permissions:
