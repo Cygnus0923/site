@@ -12,6 +12,7 @@ configuration:
     - templates
     - .obsidian
     - .git
+    - .github
     - .gitignore
     - log
     - CLAUDE.md
