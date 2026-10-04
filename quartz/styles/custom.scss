@@ -1004,3 +1004,31 @@ a.internal.lightbox-close {
     color: var(--secondary);
   }
 }
+
+// Note rows that are links (Notes page, home "Latest notes")
+a.note-row,
+a.internal.note-row {
+  display: flex;
+  padding: 0.7rem 0.6rem;
+  margin: 0 -0.6rem;
+  border-radius: 8px;
+  background-color: transparent;
+  color: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: $accentTint;
+
+    .note-title {
+      color: var(--secondary);
+    }
+  }
+}
+
+// Links inside notes: accent tint instead of the theme's yellow highlight
+article a.internal:not(.card-link):not(.note-row):not(.hero-button):not(.cert-open):not(.lightbox-close):not(.lightbox-backdrop) {
+  background-color: $accentTint;
+}
