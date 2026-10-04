@@ -1032,3 +1032,156 @@ a.internal.note-row {
 article a.internal:not(.card-link):not(.note-row):not(.hero-button):not(.cert-open):not(.lightbox-close):not(.lightbox-backdrop) {
   background-color: $accentTint;
 }
+
+// ---------------------------------------------------------------- note pages
+// Compact, scannable reading layout for notes (not the home/project pages).
+
+body[data-slug^="linux/"],
+body[data-slug^="networking/"],
+body[data-slug^="git/"],
+body[data-slug^="automation/"],
+body[data-slug^="ai-tools/"],
+body[data-slug^="cloud/"] {
+  article {
+    font-size: 0.97rem;
+
+    p,
+    li {
+      line-height: 1.55;
+    }
+
+    p {
+      margin: 0.45rem 0;
+    }
+
+    ul,
+    ol {
+      margin: 0.35rem 0;
+    }
+
+    li {
+      margin: 0.15rem 0;
+    }
+
+    h2 {
+      margin: 1.6rem 0 0.5rem;
+      padding-bottom: 0.25rem;
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--lightgray);
+    }
+
+    h3 {
+      margin: 1.1rem 0 0.35rem;
+      font-size: 1.05rem;
+    }
+
+    hr {
+      margin: 1.2rem 0;
+    }
+
+    // inline code: compact coloured chip
+    :not(pre) > code {
+      padding: 0.05rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid var(--lightgray);
+      background: $accentTint;
+      color: var(--secondary);
+      font-size: 0.85em;
+    }
+
+    // code blocks: framed like a terminal, numbered lines, tighter
+    figure[data-rehype-pretty-code-figure] {
+      margin: 0.5rem 0;
+    }
+
+    pre {
+      margin: 0.5rem 0;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid var(--lightgray);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--lightgray) 45%, var(--light));
+    }
+
+    pre > code {
+      counter-reset: line;
+      padding: 0.4rem 0;
+      font-size: 0.82rem;
+    }
+
+    pre > code > [data-line]::before {
+      counter-increment: line;
+      content: counter(line);
+      display: inline-block;
+      width: 1.6rem;
+      margin-right: 0.9rem;
+      text-align: right;
+      color: var(--gray);
+      opacity: 0.7;
+    }
+
+    // tables: compact
+    .table-container > table {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      padding: 0.3rem 0.6rem;
+    }
+
+    // callouts: compact
+    .callout {
+      margin: 0.7rem 0;
+      padding: 0.5rem 0.8rem;
+    }
+  }
+}
+
+// Big-picture diagrams: zones (e.g. "your machine" / "GitHub")
+.flowchart {
+  .fc-zone {
+    fill: none;
+    stroke: var(--secondary);
+    stroke-width: 1.2;
+    stroke-dasharray: 5 4;
+  }
+
+  .fc-zone-title {
+    fill: var(--secondary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .fc-label {
+    fill: var(--secondary);
+  }
+
+  .fc-line.fc-dim {
+    stroke-dasharray: 4 3;
+  }
+}
+
+// Horizontal strip of numbered steps under a diagram
+.step-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.4rem 0 0.8rem;
+
+  span {
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--lightgray);
+    background: $accentTint;
+    color: var(--dark);
+    font-size: 0.82rem;
+    font-weight: $semiBoldWeight;
+  }
+
+  span + span::before {
+    content: "→ ";
+    color: var(--gray);
+  }
+}
