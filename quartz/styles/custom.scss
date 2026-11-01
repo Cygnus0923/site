@@ -1041,7 +1041,20 @@ body[data-slug^="networking/"],
 body[data-slug^="git/"],
 body[data-slug^="automation/"],
 body[data-slug^="ai-tools/"],
-body[data-slug^="cloud/"] {
+body[data-slug^="cloud/"],
+body[data-slug^="hardware/"],
+body[data-slug^="robotics/"],
+body[data-slug^="lifehacks/"] {
+  // One font and colour for paragraphs and list items. The @quartz-themes/core
+  // theme styles `html[saved-theme] body p`; the extra selectors outrank it.
+  html[saved-theme] & article {
+    p,
+    li {
+      font-family: var(--bodyFont);
+      color: var(--darkgray);
+    }
+  }
+
   article {
     font-size: 0.97rem;
 
